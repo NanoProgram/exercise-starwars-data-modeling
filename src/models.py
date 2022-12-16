@@ -8,39 +8,40 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Users(Base):
-    __tablename__ = 'users'
+class User(Base):
+    __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class Favs(Base):
-    __tablename__ = 'favs'
+class Fav(Base):
+    __tablename__ = 'fav'
     id = Column(Integer, primary_key=True)
-    users_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     type_id = Column(Integer, ForeignKey('type.id'), nullable=False)
+    user = relationship(User)
     
 
-class Characters(Base):
-    __tablename__ = 'characters'
+class Character(Base):
+    __tablename__ = 'character'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class Planets(Base):
-    __tablename__ = 'planets'
+class Planet(Base):
+    __tablename__ = 'planet'
     id = Column(Integer, primary_key=True) 
     name = Column(String(250), nullable=False)  
 
-class Ships(Base):
-    __tablename__ = 'ships'
+class Ship(Base):
+    __tablename__ = 'ship'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)  
 
 class Type(Base):
     __tablename__ = 'type'
     id = Column(Integer, primary_key=True)
-    characters_id = Column(Integer, ForeignKey('characters.id'), nullable=True)
-    planets_id = Column(Integer, ForeignKey('planets.id'), nullable=True)
-    ships_id = Column(Integer, ForeignKey('ships.id'), nullable=True)
+    character_id = Column(Integer, ForeignKey('character.id'), nullable=True)
+    planet_id = Column(Integer, ForeignKey('planet.id'), nullable=True)
+    ship_id = Column(Integer, ForeignKey('ship.id'), nullable=True)
 
     def to_dict(self):
         return {}
